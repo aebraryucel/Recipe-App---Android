@@ -30,4 +30,4 @@ This application is a simple recipe application. Users can search for recipes by
 </ul>
 
 <h1>Screenshots</h1>
-<img src="screenshots/1" title="icon" alt="Image" />
+<img src="screen1.png" title="icon" alt="Image" />

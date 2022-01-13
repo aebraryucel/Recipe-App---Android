@@ -7,7 +7,7 @@
 
 <ul>
 
-<li>MVVM architecture to separate presentation layer (View) and business logic (ViewModel)</li>
+<li>MVVM architecture to separate presentation layer (View) and business logic (ViewModel) alongside with repository pattern</li>
 
 <li>Retrofit for retrieving data</li>
 

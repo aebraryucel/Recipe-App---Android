@@ -31,4 +31,4 @@ This application is a simple recipe application. Users can search for recipes by
 
 <h1>Screenshots</h1>
 <img src="1.png" title="icon" alt="Image" />
-![Home Screen](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/1.png)
+

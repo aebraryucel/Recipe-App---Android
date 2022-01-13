@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">RecipeApp</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_fragment">Home</string>
+    <string name="favourites_fragment">Favourite Recipes</string>
+    <string name="search">Search Recipe</string>
+    <string name="overview">Overview</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="min">min</string>
+    <string name="meal_type_string">Meal Type</string>
+    <string name="calorie_kcal_string">Calorie (kcal)</string>
+    <string name="cook_time_min_string">Cook Time (min.)</string>
+    <string name="search_options_string">Search Options</string>
+    <string name="sort_by_string">Sort by</string>
+    <string name="apply_string">Apply</string>
+    <string name="diet_type_string">Diet Type</string>
+    <string name="vegan_string">Vegan</string>
+    <string name="vegetarian_string">Vegetarian</string>
+    <string name="gluten_free_string">Gluten Free</string>
+    <string name="ketogenic_string">Ketogenic</string>
+    <string name="pescetarian_string">Pescetarian</string>
+    <string name="paleo_string">Paleo</string>
+    <string name="main_course_string">Main Course</string>
+    <string name="bread_string">Bread</string>
+    <string name="breakfast_string">Breakfast</string>
+    <string name="side_dish_string">Side Dish</string>
+    <string name="soup_string">Soup</string>
+    <string name="dessert_string">Dessert</string>
+    <string name="salad_string">Salad</string>
+    <string name="appetizer_string">Appetizer</string>
+    <string name="beverage_string">Beverage</string>
+    <string name="sauce_string">Sauce</string>
+    <string name="dairy_free_string">Dairy Free</string>
+    <string name="servings_string">Servings</string>
+    <string name="calories_string">Calories</string>
+    <string name="yes_string">Yes</string>
+    <string name="no_string">No</string>
+    <string name="delete_recipes_alert_title_string">Delete All Recipes</string>
+    <string name="delete_recipes_alert_message_string">Are you sure you want to delete all recipes? You can\'t undo this action.</string>
+    <string name="sort_recipes_title_string">Sort By</string>
+    <string name="sort_recipes_ok_string">OK</string>
+    <string name="no_favourite_recipes_string">No Favourite Recipes</string>
+    <string name="no_results_found_string">No Results Found</string>
+    <string-array name="sortOptions">
+        <item>Healthiness</item>
+        <item>Calories</item>
+        <item>Time</item>
+        <item>Popularity</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="initial_calorie_values">
+        <item>700.0</item>
+        <item>1400.0</item>
+    </array>
+
+    <array name="initial_health_values">
+        <item>20.0</item>
+        <item>80.0</item>
+    </array>
+
+    <array name="initial_time_values">
+        <item>40.0</item>
+        <item>100.0</item>
+    </array>
+
+    <string-array name="favouriteRecipesSortOptions">
+        <item>Popularity</item>
+        <item>Healthiness</item>
+        <item>Cooking Time</item>
+        <item>Calories</item>
+    </string-array>
+
+    />
+</resources>

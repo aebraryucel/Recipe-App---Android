@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="resultRecipe"
+            type="com.android.recipeapp.models.Result" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8F7F7">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.activities.RecipeDetailsActivity">
+
+    <TextView
+        android:id="@+id/recipeOverviewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/montserrat"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:text="@{resultRecipe.title}"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recipeSpecsCard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="15dp"
+            app:strokeColor="@color/purple_500"
+            app:strokeWidth="1dp"
+            app:cardElevation="10dp"
+            android:backgroundTint="#F8F7F7"
+            android:layout_marginHorizontal="40dp"
+            app:layout_constraintTop_toBottomOf="@id/recipeOverviewTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/clockIcon"
+            app:layout_constraintStart_toEndOf="@id/recipeLikes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/healthIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:paddingEnd="5dp"
+                android:src="@drawable/ic_healthicon"
+                android:tooltipText="Recipe Healthiness"
+                />
+
+            <TextView
+                android:id="@+id/healthinessValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/montserrat"
+                android:text="@{String.valueOf(resultRecipe.healthScore)}"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+
+
+
+        <ImageView
+            android:id="@+id/noLikesIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:tooltipText="Recipe Likes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/ic_hearticon" />
+
+        <TextView
+            android:id="@+id/recipeLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textStyle="bold"
+            android:text="@{String.valueOf(resultRecipe.aggregateLikes)}"
+            android:fontFamily="@font/montserrat"
+            app:layout_constraintStart_toEndOf="@+id/noLikesIcon"
+            app:layout_constraintTop_toTopOf="@+id/noLikesIcon" />
+
+
+        <ImageView
+            android:id="@+id/clockIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tooltipText="Recipe Cook Time"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@+id/noTime"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_clockicon" />
+
+        <TextView
+            android:id="@+id/recipeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/min"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/noTime" />
+
+        <TextView
+            android:id="@+id/noTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:text="@{String.valueOf(resultRecipe.readyInMinutes)}"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toStartOf="@+id/recipeTime"
+            app:layout_constraintTop_toTopOf="@+id/clockIcon" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/summaryText"
+        android:layout_width="0dp"
+        setSummary="@{resultRecipe.summary}"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:fontFamily="@font/montserrat"
+        android:layout_marginVertical="20dp"
+        android:textSize="14sp"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeDietSpecsCard" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recipeDietSpecsCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:strokeColor="@color/purple_500"
+        app:strokeWidth="1dp"
+        app:cardElevation="10dp"
+        android:backgroundTint="#F8F7F7"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintTop_toBottomOf="@id/recipeSpecsCard"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/isVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/vegan_string"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/isVeganIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                setDietType="@{resultRecipe.vegan}"
+                android:src="@drawable/ic_crossicon"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/isVegan"
+                app:layout_constraintStart_toEndOf="@+id/isVegan"
+                app:layout_constraintTop_toTopOf="@+id/isVegan" />
+
+
+            <TextView
+                android:id="@+id/isVegetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/vegetarian_string"
+                android:textSize="14sp"
+                android:layout_marginEnd="5dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/isVegetarianIcon"
+                app:layout_constraintStart_toStartOf="@+id/isGlutenFree"
+                app:layout_constraintTop_toBottomOf="@+id/isGlutenFree" />
+
+
+            <ImageView
+                android:id="@+id/isVegetarianIcon"
+                setDietType="@{resultRecipe.vegetarian}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tickicon"
+                app:layout_constraintBottom_toBottomOf="@+id/isVegetarian"
+                app:layout_constraintEnd_toEndOf="@+id/isGlutenFreeIcon"
+                app:layout_constraintTop_toTopOf="@+id/isVegetarian" />
+
+            <TextView
+                android:id="@+id/isDiaryFree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/dairy_free_string"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/isVegan"
+                app:layout_constraintTop_toBottomOf="@+id/isGlutenFree" />
+
+            <ImageView
+                android:id="@+id/isDiaryFreeIcon"
+                setDietType="@{resultRecipe.dairyFree}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_tickicon"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/isDiaryFree"
+                app:layout_constraintStart_toEndOf="@+id/isDiaryFree"
+                app:layout_constraintTop_toTopOf="@+id/isDiaryFree" />
+
+
+            <TextView
+                android:id="@+id/isGlutenFree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/gluten_free_string"
+                android:layout_marginEnd="5dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/isGlutenFreeIcon"
+
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/isGlutenFreeIcon"
+                setDietType="@{resultRecipe.glutenFree}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_crossicon"
+                android:layout_marginEnd="30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/isGlutenFree"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/isGlutenFree" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

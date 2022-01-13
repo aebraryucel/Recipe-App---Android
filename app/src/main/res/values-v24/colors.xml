@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shimmerColor">#ACABAB</color>
+    <color name="search_options_sort_background_color">#E5E5E5</color>
+    <color name="search_options_sort_text_color">#7A7AC7</color>
+</resources>

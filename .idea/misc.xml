@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/background_rounded_button.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/bottom_nav_shape.xml" value="0.21666666666666667" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/button_selector.xml" value="0.24010416666666667" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/custom_textview_background.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_caloriesicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_clockicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_crossicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_deleteicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_doticon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_error.xml" value="0.378125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_filtericon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_healthicon.xml" value="0.378125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_hearticon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_like.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_liked.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_options.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_servingsicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_settingsicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_sorticon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_staricon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ic_tickicon.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/ingredients_row_shape.xml" value="0.22447916666666667" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/placeholder_background.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/rounded_corner.xml" value="0.378125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/tab_bg_selected.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/tabs_selector.xml" value="0.23697916666666666" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/toggle_button_background.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/drawable/toggle_button_rounded.xml" value="0.3828125" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/activity_main.xml" value="0.1994949494949495" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/activity_recipe_details.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/dropdown_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_favourites.xml" value="0.5" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_recipe_details.xml" value="0.27898550724637683" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_recipe_ingredients.xml" value="0.5" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_recipe_instructions.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_recipe_overview.xml" value="0.5" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/fragment_search_options.xml" value="0.34074074074074073" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/ingredients_row_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/instructions_row_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/list_item_shimmer_layout.xml" value="0.2753623188405797" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/placeholder_shimmer_layout.xml" value="0.24864130434782608" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/recipe_card_layout.xml" value="0.22081218274111675" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/layout/spinner_item.xml" value="0.20520833333333333" />
+        <entry key="..\:/AndroidProjects/RecipeApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.36666666666666664" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

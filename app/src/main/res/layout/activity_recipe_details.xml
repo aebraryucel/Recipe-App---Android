@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="recipeResult"
+            type="com.android.recipeapp.models.Result" />
+
+        <variable
+            name="activity"
+            type="com.android.recipeapp.ui.activities.RecipeDetailsActivity" />
+
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F7F7"
+    tools:context=".ui.activities.RecipeDetailsActivity">
+
+    <ImageView
+        android:id="@+id/recipeDetailedImage"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        imgUrl="@{recipeResult.image}"
+        android:src="@android:drawable/ic_menu_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/likeIcon"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:elevation="30dp"
+        setFavouriteIcon="@{recipeResult.favorite}"
+        favouriteIconOnClickArg1="@{recipeResult}"
+        favouriteIconOnClickArg2="@{activity}"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeDetailedImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeDetailedImage"
+        app:srcCompat="@drawable/ic_like" />
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/fragmentTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/likeIcon"
+        app:strokeColor="@android:color/transparent"
+        app:strokeWidth="0dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:backgroundTint="#E5E5E5"
+            app:tabBackground="@drawable/tabs_selector"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="@android:color/black"
+            app:tabTextAppearance="@style/CustomTabTextAppearance"
+            app:tabTextColor="#5E5E5E">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/overviewTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/ingredientsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/instructionsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentTab" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

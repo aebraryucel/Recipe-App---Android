@@ -30,6 +30,16 @@ This application is a simple recipe application. Users can search for recipes by
 </ul>
 
 <h1>Screenshots</h1>
-<img src="1.png" title="icon" alt="Image" />
 
 ![Home Screen](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/1.png)
+![Favourite Recipes Screen](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/2.png)
+![Search Options Screen](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/3.png)
+![Favourite Recipes Sort Dialog](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/4.png)
+![Favourite Recipes Delete Dialog](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/5.png)
+![Recipe Details Screen - Overview](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/6.png)
+![Recipe Details Screen - Ingredients](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/7.png)
+![Recipe Details Screen - Instructions](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/8.png)
+![Home Screen Search Example](https://github.com/aebraryucel/Recipe-App-Android/blob/main/screenshots/9.png)
+
+
+

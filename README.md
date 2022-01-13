@@ -1,5 +1,6 @@
 <h1>About</h1>
 
+This application is a simple recipe application. Users can search for recipes by filtering by features such as calories, food type, cooking time. In addition, users can learn about the recipe by opening the detail page of the recipe they have chosen, and they can add the recipes they choose to their favorite recipes. Recipes added to favorites and recent search results are kept in the database.
 
 
 </br>

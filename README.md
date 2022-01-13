@@ -19,7 +19,7 @@
   
 <li>Preferences DataStore for saving user preferences.</li>
 
-<li>Navigation</li>
+<li>Navigation Component</li>
 
 <li>Data binding</li>
   

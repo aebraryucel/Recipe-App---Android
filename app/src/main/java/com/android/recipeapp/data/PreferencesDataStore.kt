@@ -11,17 +11,24 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.android.recipeapp.R
 import com.android.recipeapp.models.FoodRecipes
+import com.android.recipeapp.models.UserPreferences
 import com.android.recipeapp.util.Constants
 import com.android.recipeapp.util.Constants.Companion.CALORIES_MAX_KEY
 import com.android.recipeapp.util.Constants.Companion.CALORIES_MIN_KEY
 import com.android.recipeapp.util.Constants.Companion.DATASTORE_NAME
 import com.android.recipeapp.util.Constants.Companion.DEFAULT_SELECTED_SORT_INDEX
 import com.android.recipeapp.util.Constants.Companion.DEFAULT_SELECTED_SORT_MENU_POSITION
+import com.android.recipeapp.util.Constants.Companion.DIET_TYPE_DEFAULT_SELECTED_CHIP_ID
+import com.android.recipeapp.util.Constants.Companion.DIET_TYPE_DEFAULT_SELECTED_CHIP_NAME
 import com.android.recipeapp.util.Constants.Companion.FAVOURITES_SORT_TYPE_KEY
+import com.android.recipeapp.util.Constants.Companion.MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID
+import com.android.recipeapp.util.Constants.Companion.MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME
 import com.android.recipeapp.util.Constants.Companion.RANGE_SLIDER_DEFAULT_MAX_VALUE
 import com.android.recipeapp.util.Constants.Companion.RANGE_SLIDER_DEFAULT_MIN_VALUE
 import com.android.recipeapp.util.Constants.Companion.SELECTED_DIET_CHIP_ID_KEY
+import com.android.recipeapp.util.Constants.Companion.SELECTED_DIET_CHIP_NAME_KEY
 import com.android.recipeapp.util.Constants.Companion.SELECTED_MEAL_TYPE_CHIP_ID_KEY
+import com.android.recipeapp.util.Constants.Companion.SELECTED_MEAL_TYPE_CHIP_NAME_KEY
 import com.android.recipeapp.util.Constants.Companion.SLIDER_DEFAULT_MAX_VALUE
 import com.android.recipeapp.util.Constants.Companion.SORT_MENU_STATUS_KEY
 import com.android.recipeapp.util.Constants.Companion.TIME_MAX_KEY
@@ -50,33 +57,36 @@ class PreferencesDataStore @Inject constructor(@ApplicationContext private val c
 
     val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = DATASTORE_NAME)
 
-    suspend fun saveRangeSliderPreferenceValue(startValue: String,endValue:String, minKey:String, maxKey:String){
+    //Search Options for Home Fragment
+
+    suspend fun saveUserPreferences(userPreferences: UserPreferences){
         context.dataStore.edit {preferences->
-            preferences[stringPreferencesKey(minKey)]=startValue
-            preferences[stringPreferencesKey(maxKey)]=endValue
+            preferences[stringPreferencesKey(CALORIES_MIN_KEY)]=userPreferences.calorieSliderMinValue
+            preferences[stringPreferencesKey(CALORIES_MAX_KEY)]=userPreferences.calorieSliderMaxValue
+            preferences[stringPreferencesKey(TIME_MAX_KEY)]=userPreferences.timeSliderMaxValue
+            preferences[intPreferencesKey(SELECTED_DIET_CHIP_ID_KEY)]=userPreferences.dietTypeChipId
+            preferences[stringPreferencesKey(SELECTED_DIET_CHIP_NAME_KEY)]=userPreferences.dietTypeChipName
+            preferences[intPreferencesKey(SELECTED_MEAL_TYPE_CHIP_ID_KEY)]=userPreferences.mealTypeChipId
+            preferences[stringPreferencesKey(SELECTED_MEAL_TYPE_CHIP_NAME_KEY)]=userPreferences.mealTypeChipName
+            preferences[stringPreferencesKey(SORT_MENU_STATUS_KEY)]=userPreferences.selectedSort
         }
     }
 
-    suspend fun saveSliderPreferenceValue(value: String, maxTimeKey: String) {
-        context.dataStore.edit {preferences->
-            preferences[stringPreferencesKey(maxTimeKey)]=value
-        }
-
+    val userPreferences:Flow<UserPreferences> = context.dataStore.data.map {
+        UserPreferences(
+            it[stringPreferencesKey(CALORIES_MIN_KEY)]?:RANGE_SLIDER_DEFAULT_MIN_VALUE.toInt().toString(),
+            it[stringPreferencesKey(CALORIES_MAX_KEY)]?:RANGE_SLIDER_DEFAULT_MAX_VALUE.toInt().toString(),
+            it[stringPreferencesKey(TIME_MAX_KEY)]?: SLIDER_DEFAULT_MAX_VALUE.toInt().toString(),
+            it[intPreferencesKey(SELECTED_DIET_CHIP_ID_KEY)]?: DIET_TYPE_DEFAULT_SELECTED_CHIP_ID,
+            it[stringPreferencesKey(SELECTED_DIET_CHIP_NAME_KEY)]?: DIET_TYPE_DEFAULT_SELECTED_CHIP_NAME,
+            it[intPreferencesKey(SELECTED_MEAL_TYPE_CHIP_ID_KEY)]?: MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID,
+            it[stringPreferencesKey(SELECTED_MEAL_TYPE_CHIP_NAME_KEY)]?: MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME,
+            it[stringPreferencesKey(SORT_MENU_STATUS_KEY)]?: DEFAULT_SELECTED_SORT_MENU_POSITION.toString()
+        )
     }
 
-    suspend fun saveSelectedChipIds(selectedChip:Int,selectedChipKey:String){
-        context.dataStore.edit { preferences->
-            preferences[stringPreferencesKey(selectedChipKey)]=selectedChip.toString()
-        }
 
-    }
-
-    suspend fun saveSortType(selectedMenuItemPosition: Int,key:String){
-        context.dataStore.edit {preferences->
-            preferences[stringPreferencesKey(key)]=selectedMenuItemPosition.toString()
-        }
-    }
-
+    //Sort options for Favourites Fragment
 
     suspend fun saveFavouritesSortIndex(selectedSortIndex:Int,key:String){
         context.dataStore.edit {preferences->
@@ -84,38 +94,14 @@ class PreferencesDataStore @Inject constructor(@ApplicationContext private val c
         }
     }
 
-
-    //Home Fragment
-
-    val rangeSliderMinValueFlow:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(CALORIES_MIN_KEY)]?:RANGE_SLIDER_DEFAULT_MIN_VALUE.toString()
-    }
-
-    val rangeSliderMaxValueFlow:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(CALORIES_MAX_KEY)]?:RANGE_SLIDER_DEFAULT_MAX_VALUE.toString()
-    }
-
-    val sliderMaxValueFlow:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(TIME_MAX_KEY)]?: SLIDER_DEFAULT_MAX_VALUE.toString()
-    }
-
-
-    val dietTypeChipId:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(SELECTED_DIET_CHIP_ID_KEY)]?: R.id.veganChip.toString()
-    }
-
-    val mealTypeChipId:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(SELECTED_MEAL_TYPE_CHIP_ID_KEY)]?: R.id.mainCourseChip.toString()
-    }
-
-    val sortType:Flow<String> = context.dataStore.data.map {
-        it[stringPreferencesKey(SORT_MENU_STATUS_KEY)]?: DEFAULT_SELECTED_SORT_MENU_POSITION.toString()
-    }
-
-
     val favouritesSelectedSortIndex:Flow<Int> = context.dataStore.data.map {
         it[intPreferencesKey(FAVOURITES_SORT_TYPE_KEY)]?: DEFAULT_SELECTED_SORT_INDEX
     }
+
+
+
+
+
 
 
 

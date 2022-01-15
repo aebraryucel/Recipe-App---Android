@@ -110,32 +110,6 @@ class MainViewModel @Inject constructor(application: Application, private val re
         }
     }
 
-     fun getQueries(keyword:String?= null):HashMap<String,String>{
-        val queries:HashMap<String,String> = HashMap()
-        queries[Constants.QUERY_PARAMETER_API_KEY] = Constants.API_KEY
-        queries[Constants.QUERY_PARAMETER_RECIPE_INFO] = Constants.QUERY_TRUE
-        queries[Constants.QUERY_PARAMETER_FILL_INGREDIENTS] = Constants.QUERY_TRUE
-        queries[Constants.QUERY_PARAMETER_RESULT_NUMBER]= Constants.QUERY_RESULT_NUMBER
-
-        keyword?.let {
-            queries[Constants.QUERY_PARAMETER_NAME]=keyword
-        }
-
-        queries[Constants.QUERY_PARAMETER_MIN_CALORIES] = SearchOptionsFragment.currentRangeSliderMinValue.toInt().toString()
-        queries[Constants.QUERY_PARAMETER_MAX_CALORIES] = SearchOptionsFragment.currentRangeSliderMaxValue.toInt().toString()
-        queries[Constants.QUERY_PARAMETER_MAX_TIME] = SearchOptionsFragment.currentSliderMaxValue.toInt().toString()
-        queries[Constants.QUERY_PARAMETER_SORT_TYPE] = SearchOptionsFragment.currentSelectedMenuItem
-
-        if(SearchOptionsFragment.currentCheckedDietTypeChipId!=-1){
-            queries[Constants.QUERY_PARAMETER_DIET_TYPE]= SearchOptionsFragment.currentCheckedDietTypeChipName
-        }
-
-        if(SearchOptionsFragment.currentCheckedMealTypeChipId!=-1){
-            queries[Constants.QUERY_PARAMETER_MEAL_TYPE]= SearchOptionsFragment.currentCheckedMealTypeChipName
-        }
-
-        return queries
-    }
 
 
 

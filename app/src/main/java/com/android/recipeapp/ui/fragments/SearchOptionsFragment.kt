@@ -28,6 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search_options.*
 import kotlinx.coroutines.launch
 import androidx.lifecycle.MediatorLiveData
+import com.android.recipeapp.models.UserPreferences
 import com.android.recipeapp.util.Constants.Companion.DEFAULT_SELECTED_SORT_MENU_ITEM
 import com.android.recipeapp.util.Constants.Companion.DEFAULT_SELECTED_SORT_MENU_POSITION
 import com.android.recipeapp.util.Constants.Companion.DIET_TYPE_DEFAULT_SELECTED_CHIP_ID
@@ -36,6 +37,7 @@ import com.android.recipeapp.util.Constants.Companion.MEAL_TYPE_DEFAULT_SELECTED
 import com.android.recipeapp.util.Constants.Companion.MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME
 import com.android.recipeapp.util.Constants.Companion.SLIDER_DEFAULT_MAX_VALUE
 import com.google.android.material.chip.Chip
+import kotlinx.coroutines.Dispatchers
 
 
 @AndroidEntryPoint
@@ -46,9 +48,9 @@ class SearchOptionsFragment : BottomSheetDialogFragment(){
     private lateinit var arrayAdapter:ArrayAdapter<String>
 
     companion object{
-        var currentRangeSliderMinValue:Float=RANGE_SLIDER_DEFAULT_MIN_VALUE
-        var currentRangeSliderMaxValue:Float=RANGE_SLIDER_DEFAULT_MAX_VALUE
-        var currentSliderMaxValue:Float= SLIDER_DEFAULT_MAX_VALUE
+        var currentRangeSliderMinValue:Float=RANGE_SLIDER_DEFAULT_MIN_VALUE.toFloat()
+        var currentRangeSliderMaxValue:Float=RANGE_SLIDER_DEFAULT_MAX_VALUE.toFloat()
+        var currentSliderMaxValue:Float= SLIDER_DEFAULT_MAX_VALUE.toFloat()
         var currentCheckedDietTypeChipId :Int = MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID
         var currentCheckedMealTypeChipName: String = MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME
         var currentCheckedMealTypeChipId :Int = DIET_TYPE_DEFAULT_SELECTED_CHIP_ID
@@ -63,16 +65,14 @@ class SearchOptionsFragment : BottomSheetDialogFragment(){
     ): View? {
 
         binding= DataBindingUtil.inflate(inflater,R.layout.fragment_search_options,container,false)
-        getTimeSliderMaxValue()
+
+        initSortMenu()
+        getUserPreferences()
         rangeSliderOnChangeListener()
         sliderOnChangeListener()
         dietTypeChipsOnCheckListener()
         mealTypeChipsOnCheckListener()
         sortMenuSelectionListener()
-        getCalorieSliderValues()
-        getTypeChips()
-        initSortMenu()
-        getMenuPreference()
         applyButtonListener()
         return binding.root
     }
@@ -143,94 +143,62 @@ class SearchOptionsFragment : BottomSheetDialogFragment(){
     }
 
 
-    private fun getCalorieSliderValues()=lifecycleScope.launch{
-        searchOptionsViewModel.apply {
-            val combinedLiveData=calorieSliderMinValue.asLiveData().zipWith(calorieSliderMaxValue.asLiveData())
-            combinedLiveData.observe(viewLifecycleOwner,{
-               binding.calorieSlider.setValues(it.first.toFloat(),it.second.toFloat())
-            })
-        }
-    }
 
-    fun <A, B> LiveData<A>.zipWith(stream: LiveData<B>): LiveData<Pair<A, B>> {
-        val result = MediatorLiveData<Pair<A, B>>()
-        result.addSource(this) { a ->
-            if (a != null && stream.value != null) {
-                result.value = Pair(a, stream.value!!)
+    private fun getUserPreferences()=lifecycleScope.launch{
+        searchOptionsViewModel.userPreferences.asLiveData().observe(viewLifecycleOwner,{
+            binding.apply {
+                calorieSlider.setValues(it.calorieSliderMinValue.toFloat(),it.calorieSliderMaxValue.toFloat())
+                timeSlider.value=it.timeSliderMaxValue.toFloat()
+                setSelectedMenuItem(it.selectedSort.toInt())
+                setDietChip(it.dietTypeChipId)
+                setMealChip(it.mealTypeChipId)
             }
-        }
-        result.addSource(stream) { b ->
-            if (b != null && this.value != null) {
-                result.value = Pair(this.value!!, b)
-            }
-        }
-        return result
-    }
-
-
-
-    private fun getTimeSliderMaxValue()=lifecycleScope.launch{
-        searchOptionsViewModel.timeSliderMaxValue.asLiveData().observe(viewLifecycleOwner,{
-            binding.timeSlider.value=it.toFloat()
         })
     }
 
-
-
-    private fun getMenuPreference()=lifecycleScope.launch{
-        searchOptionsViewModel.selectedSort.asLiveData().observe(viewLifecycleOwner,{
-            Log.d("SELECTED SORT POSITION",it)
-            val selectedItem=arrayAdapter.getItem(it.toInt())!!
-            binding.sortItem.setText(selectedItem,false)
-            currentSelectedMenuItem=selectedItem.lowercase()
-
-        })
-    }
-
-
-    private fun getTypeChips()=lifecycleScope.launch {
-        searchOptionsViewModel.apply {
-            mealTypeChipId.asLiveData().observe(viewLifecycleOwner, {
-                val selectedChipId=it.toInt()
-                mealTypeChips.check(selectedChipId)
-                Log.d("555555555 MEAL TYPE SELECTED CHIP ID",selectedChipId.toString())
-                if(selectedChipId!=-1){
-                    val chip= mealTypeChips.findViewById<Chip>(selectedChipId)
-                    if(chip!=null){
-                        currentCheckedMealTypeChipName= chip.text.toString().lowercase()
-                    }
-
-                }
-            })
-
-            dietTypeChipId.asLiveData().observe(viewLifecycleOwner, {
-                val selectedChipId=it.toInt()
-                Log.d("444444444 DIET TYPE SELECTED CHIP ID",selectedChipId.toString())
-                dietsChipGroup.check(selectedChipId)
-                if(selectedChipId!=-1){
-                    val chip= dietsChipGroup.findViewById<Chip>(selectedChipId)
-                    if(chip!=null){
-                        currentCheckedDietTypeChipName= chip.text.toString().lowercase()
-                    }
-
-                }
-            })
+    private fun setDietChip(dietTypeChipId: Int) {
+        val selectedChipId=dietTypeChipId
+        dietsChipGroup.check(selectedChipId)
+        if(selectedChipId!=-1){
+            val chip= dietsChipGroup.findViewById<Chip>(selectedChipId)
+            if(chip!=null){
+                currentCheckedMealTypeChipName= chip.text.toString().lowercase()
             }
         }
+    }
 
+    private fun setMealChip(dietTypeChipId: Int) {
+        val selectedChipId=dietTypeChipId
+        mealTypeChips.check(selectedChipId)
+        if(selectedChipId!=-1){
+            val chip= mealTypeChips.findViewById<Chip>(selectedChipId)
+            if(chip!=null){
+                currentCheckedMealTypeChipName= chip.text.toString().lowercase()
+            }
+        }
+    }
+
+    private fun setSelectedMenuItem(id:Int){
+        val selectedItem=arrayAdapter.getItem(id)!!
+        sortItem.setText(selectedItem,false)
+        currentSelectedMenuItem=selectedItem.lowercase()
+    }
 
 
     private fun applyButtonListener(){
         binding.apply {
             applyOptionsButton.setOnClickListener {
                 searchOptionsViewModel.apply {
-                    saveRangeSliderValue(currentRangeSliderMinValue.toString(), currentRangeSliderMaxValue.toString(), CALORIES_MIN_KEY,CALORIES_MAX_KEY)
-                    saveSliderValue(currentSliderMaxValue.toString(), TIME_MAX_KEY)
-                    saveSelectedChipId(currentCheckedDietTypeChipId, SELECTED_DIET_CHIP_ID_KEY)
-                    Log.d("SAVED SELECTED DIET CHIP ID ",currentCheckedDietTypeChipId.toString())
-                    saveSelectedChipId(currentCheckedMealTypeChipId,SELECTED_MEAL_TYPE_CHIP_ID_KEY)
-                    Log.d("SAVED SELECTED MEAL CHIP ID ",currentCheckedMealTypeChipId.toString())
-                    saveSortType(currentSelectedMenuPosition, SORT_MENU_STATUS_KEY)
+                    val currentPreferences=UserPreferences(
+                        currentRangeSliderMinValue.toString(),
+                        currentRangeSliderMaxValue.toString(),
+                        currentSliderMaxValue.toString(),
+                        currentCheckedDietTypeChipId,
+                        currentCheckedDietTypeChipName,
+                        currentCheckedMealTypeChipId,
+                        currentCheckedMealTypeChipName,
+                        currentSelectedMenuPosition.toString())
+                    saveUserPreferences(currentPreferences)
                 }
 
                 val action = SearchOptionsFragmentDirections.actionSearchOptionsFragmentToHomeFragment(true)

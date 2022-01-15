@@ -18,8 +18,10 @@ import com.android.recipeapp.data.database.FavouriteRecipeEntity
 import com.android.recipeapp.databinding.FragmentHomeBinding
 import com.android.recipeapp.models.Result
 import com.android.recipeapp.ui.adapters.HomeFragmentAdapter
+import com.android.recipeapp.util.Constants
 import com.android.recipeapp.util.Resource
 import com.android.recipeapp.viewmodels.MainViewModel
+import com.android.recipeapp.viewmodels.SearchOptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,6 +32,7 @@ class HomeFragment : Fragment(){
     var list = listOf<Result>()
 
     private val viewModel: MainViewModel by viewModels()
+    private val searchOptionsViewModel: SearchOptionsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +52,7 @@ class HomeFragment : Fragment(){
             val isFromSearchOptionsFragment = HomeFragmentArgs.fromBundle(requireArguments()).returnFromOptionsFragment
             if(isFromSearchOptionsFragment){
                 Log.d("GET DATA FUNCTION","FROM SEARCH OPTIONS FRAGMENT, GET RECIPES FROM API")
-               getRecipesFromApi(viewModel.getQueries())
+               getRecipesFromApi(searchOptionsViewModel.getQueries())
              }
             else{
                 Log.d("GET DATA FUNCTION","GET RECIPES FROM DB, ARGUMENTS NOT NULL")
@@ -75,7 +78,7 @@ class HomeFragment : Fragment(){
     fun searchListener(){
         binding.textFieldInput.doOnTextChanged { text, start, before, count ->
             if(start>=0){
-                getRecipesFromApi(viewModel.getQueries(keyword = text.toString()))
+                getRecipesFromApi(searchOptionsViewModel.getQueries(keyword = text.toString()))
             }
             else{
                 getRecipesFromDatabase()
@@ -127,7 +130,7 @@ class HomeFragment : Fragment(){
                 }
             }
             else{
-                getRecipesFromApi(viewModel.getQueries())
+                getRecipesFromApi(searchOptionsViewModel.getQueries())
             }
 
         })

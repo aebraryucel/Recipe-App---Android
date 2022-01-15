@@ -32,20 +32,22 @@ class Constants {
 
         const val DATASTORE_NAME="Preferences_DataStore"
 
-        const val RANGE_SLIDER_DEFAULT_MIN_VALUE=100.0f
-        const val RANGE_SLIDER_DEFAULT_MAX_VALUE=1700.0f
-        const val SLIDER_DEFAULT_MAX_VALUE=180.0f
-        const val MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID= R.id.mainCourseChip
-        const val MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME="main course"
-        const val DIET_TYPE_DEFAULT_SELECTED_CHIP_NAME="vegan"
-        const val DIET_TYPE_DEFAULT_SELECTED_CHIP_ID= R.id.mainCourseChip
+        const val RANGE_SLIDER_DEFAULT_MIN_VALUE=100
+        const val RANGE_SLIDER_DEFAULT_MAX_VALUE=1000
+        const val SLIDER_DEFAULT_MAX_VALUE=240
+        const val MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID= -1
+        const val MEAL_TYPE_DEFAULT_SELECTED_CHIP_NAME=""
+        const val DIET_TYPE_DEFAULT_SELECTED_CHIP_NAME=""
+        const val DIET_TYPE_DEFAULT_SELECTED_CHIP_ID= -1
         const val DEFAULT_SELECTED_SORT_MENU_POSITION = 0
         const val DEFAULT_SELECTED_SORT_MENU_ITEM="healthiness"
 
         const val TIME_MAX_KEY="TimeMax"
         const val CALORIES_MIN_KEY="CaloriesMin"
         const val CALORIES_MAX_KEY="CaloriesMax"
+        const val SELECTED_DIET_CHIP_NAME_KEY="dietTypeChipName"
         const val SELECTED_DIET_CHIP_ID_KEY="dietTypeChipId"
+        const val SELECTED_MEAL_TYPE_CHIP_NAME_KEY="mealTypeChipName"
         const val SELECTED_MEAL_TYPE_CHIP_ID_KEY="mealTypeChipId"
         const val SORT_MENU_STATUS_KEY="SortMenuStatus"
 

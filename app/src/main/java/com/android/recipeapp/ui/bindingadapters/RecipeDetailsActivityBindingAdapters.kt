@@ -1,5 +1,6 @@
 package com.android.recipeapp.ui.bindingadapters
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.android.recipeapp.R

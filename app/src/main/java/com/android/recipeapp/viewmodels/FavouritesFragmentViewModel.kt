@@ -20,7 +20,6 @@ class FavouritesFragmentViewModel @Inject constructor(private val dataStore: Pre
 
 
     fun saveSortType(selectedSortIndex: Int,key:String)=viewModelScope.launch(Dispatchers.IO) {
-        Log.d("SAVED SORT INDEX",selectedSortIndex.toString())
         dataStore.saveFavouritesSortIndex(selectedSortIndex,key)
     }
 

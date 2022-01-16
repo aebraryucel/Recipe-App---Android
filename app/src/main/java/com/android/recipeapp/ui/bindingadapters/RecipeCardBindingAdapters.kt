@@ -26,7 +26,6 @@ class RecipeCardBindingAdapters {
 
                 val bundle = Bundle()
                 bundle.putParcelable("recipe", recipe)
-
                 Navigation.findNavController(layout).navigate(R.id.recipeDetailsActivity,bundle)
 
             }

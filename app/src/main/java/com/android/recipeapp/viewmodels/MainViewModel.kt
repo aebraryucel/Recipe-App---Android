@@ -60,10 +60,11 @@ class MainViewModel @Inject constructor(application: Application, private val re
 
                 val recipe = recipes.value!!.data
                 recipe?.let {
+                    if(it.results.isNotEmpty()){
                     val recipesEntity = RecipesEntity(recipe)
                     saveRecipesToDb(recipesEntity)
+                    }
                 }
-
 
 
             }catch (e:Exception){

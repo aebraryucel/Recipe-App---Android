@@ -12,7 +12,7 @@ class Constants {
         const val BASE_URL="https://api.spoonacular.com"
 
         const val QUERY_TRUE="true"
-        const val QUERY_RESULT_NUMBER="5"
+        const val QUERY_RESULT_NUMBER="20"
 
         const val QUERY_PARAMETER_API_KEY="apiKey"
         const val QUERY_PARAMETER_RECIPE_INFO="addRecipeInformation"

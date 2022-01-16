@@ -76,13 +76,15 @@ class HomeFragment : Fragment(){
     }
 
     fun searchListener(){
-        binding.textFieldInput.doOnTextChanged { text, start, before, count ->
-            if(start>=0){
-                getRecipesFromApi(searchOptionsViewModel.getQueries(keyword = text.toString()))
+        binding.textField.setStartIconOnClickListener {
+            binding.textFieldInput.text?.let {
+                if(it.length>0){
+                    getRecipesFromApi(searchOptionsViewModel.getQueries(keyword = it.toString()))
+                }else{
+                    getRecipesFromDatabase()
+                }
             }
-            else{
-                getRecipesFromDatabase()
-            }
+
         }
     }
 

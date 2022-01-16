@@ -21,6 +21,7 @@ import com.android.recipeapp.models.Result
 import com.android.recipeapp.ui.adapters.HomeFragmentAdapter
 import com.android.recipeapp.util.Constants
 import com.android.recipeapp.util.Resource
+import com.android.recipeapp.viewmodels.FavouritesFragmentViewModel
 import com.android.recipeapp.viewmodels.MainViewModel
 import com.android.recipeapp.viewmodels.SearchOptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -133,6 +134,7 @@ class HomeFragment : Fragment(){
                     binding.shimmerRecyclerView.apply {
                         visibility=View.VISIBLE
                         binding.noResultsFound.visibility=View.INVISIBLE
+                        checkIfFavourite(it.results)///////////////////////////////////////////////
                         adapter = HomeFragmentAdapter(it.results)
                     }
                 }
@@ -154,14 +156,11 @@ class HomeFragment : Fragment(){
     }
 
 
-
-
-
-
     fun getRecipesFromDatabase() = lifecycleScope.launch{
         viewModel.databaseRecipes.observe(viewLifecycleOwner,{ database->
             if(database.isNotEmpty()){
                 binding.shimmerRecyclerView.apply {
+                    checkIfFavourite(database[0].recipes.results)///////////////////////////////////
                     adapter=HomeFragmentAdapter(database[0].recipes.results)
                     hideShimmer()
                 }
@@ -181,7 +180,16 @@ class HomeFragment : Fragment(){
     }
 
 
-
-
+    fun checkIfFavourite(recipes:List<Result>){
+        viewModel.favouriteRecipes.observe(viewLifecycleOwner,{favouriteRecipes->
+            recipes.forEach {recipe->
+                favouriteRecipes.forEach {
+                    if(it.id==recipe.id){
+                        recipe.isFavorite=true
+                    }
+                }
+            }
+        })
+    }
 
 }

@@ -35,6 +35,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private lateinit var binding:ActivityRecipeDetailsBinding
     private val args by navArgs<RecipeDetailsActivityArgs>()
     private val viewModel: MainViewModel by viewModels()
+    private var recipe:Result? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_details)
 
-        val recipe: Result? = args.toBundle().getParcelable("recipe")
+        recipe = args.toBundle().getParcelable("recipe")
 
         recipe?.let {
             binding.apply {
@@ -96,15 +98,9 @@ class RecipeDetailsActivity : AppCompatActivity() {
         viewModel.deleteFavouriteRecipeFromDb(FavouriteRecipeEntity(recipe.id,recipe))
     }
 
-
-    fun deleteAllRecipesFromFavourites(){
-        viewModel.deleteAllFavouriteRecipesFromDb()
-    }
-
     fun saveFavouriteRecipe(recipe: Result){
         viewModel.saveFavouriteRecipeToDb(FavouriteRecipeEntity(recipe.id,recipe))
     }
-
 
 
 }

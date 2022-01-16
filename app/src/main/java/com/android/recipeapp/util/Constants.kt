@@ -1,6 +1,5 @@
 package com.android.recipeapp.util
 
-import com.android.recipeapp.R
 
 
 class Constants {
@@ -8,11 +7,11 @@ class Constants {
     companion object{
 
         //RETROFIT
-        const val API_KEY="f9655e9ef6514ebb9c8722677812f355"
+        const val API_KEY="01627ad450b247d490683cb1fd764c84"
         const val BASE_URL="https://api.spoonacular.com"
 
         const val QUERY_TRUE="true"
-        const val QUERY_RESULT_NUMBER="20"
+        const val QUERY_RESULT_NUMBER="50"
 
         const val QUERY_PARAMETER_API_KEY="apiKey"
         const val QUERY_PARAMETER_RECIPE_INFO="addRecipeInformation"

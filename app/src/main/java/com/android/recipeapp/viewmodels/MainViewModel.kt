@@ -26,6 +26,7 @@ class MainViewModel @Inject constructor(application: Application, private val re
 
     //RETROFIT
     var recipes:MutableLiveData<Resource<FoodRecipes>> = MutableLiveData()
+    var searchResults: MutableLiveData<Resource<FoodRecipes>> = MutableLiveData()
 
 
     //ROOM
@@ -65,17 +66,32 @@ class MainViewModel @Inject constructor(application: Application, private val re
                     saveRecipesToDb(recipesEntity)
                     }
                 }
-
-
             }catch (e:Exception){
                 recipes.postValue(Resource.Error(e.toString()))
             }
-
         }else{
             recipes.postValue(Resource.Error("Connection Error!",null))
         }
-
     }
+
+
+
+
+    fun getSearchResults(queries:Map<String,String>)=viewModelScope.launch{
+        if(hasInternetConnection()){
+            try {
+                val response = repository.remoteSource.getRecipes(queries)
+                searchResults.value=handleResponse(response)
+
+            }catch (e:Exception){
+                searchResults.postValue(Resource.Error(e.toString()))
+            }
+        }else{
+            searchResults.postValue(Resource.Error("Connection Error!",null))
+        }
+    }
+
+
 
     private fun handleResponse(response: Response<FoodRecipes>): Resource<FoodRecipes> {
         when{

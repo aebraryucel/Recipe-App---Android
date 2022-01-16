@@ -74,9 +74,9 @@ class PreferencesDataStore @Inject constructor(@ApplicationContext private val c
 
     val userPreferences:Flow<UserPreferences> = context.dataStore.data.map {
         UserPreferences(
-            it[stringPreferencesKey(CALORIES_MIN_KEY)]?:RANGE_SLIDER_DEFAULT_MIN_VALUE.toInt().toString(),
-            it[stringPreferencesKey(CALORIES_MAX_KEY)]?:RANGE_SLIDER_DEFAULT_MAX_VALUE.toInt().toString(),
-            it[stringPreferencesKey(TIME_MAX_KEY)]?: SLIDER_DEFAULT_MAX_VALUE.toInt().toString(),
+            it[stringPreferencesKey(CALORIES_MIN_KEY)]?:RANGE_SLIDER_DEFAULT_MIN_VALUE.toString(),
+            it[stringPreferencesKey(CALORIES_MAX_KEY)]?:RANGE_SLIDER_DEFAULT_MAX_VALUE.toString(),
+            it[stringPreferencesKey(TIME_MAX_KEY)]?: SLIDER_DEFAULT_MAX_VALUE.toString(),
             it[intPreferencesKey(SELECTED_DIET_CHIP_ID_KEY)]?: DIET_TYPE_DEFAULT_SELECTED_CHIP_ID,
             it[stringPreferencesKey(SELECTED_DIET_CHIP_NAME_KEY)]?: DIET_TYPE_DEFAULT_SELECTED_CHIP_NAME,
             it[intPreferencesKey(SELECTED_MEAL_TYPE_CHIP_ID_KEY)]?: MEAL_TYPE_DEFAULT_SELECTED_CHIP_ID,

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.recipeapp.R
 import com.android.recipeapp.data.database.FavouriteRecipeEntity
 import com.android.recipeapp.databinding.FragmentHomeBinding
+import com.android.recipeapp.models.FoodRecipes
 import com.android.recipeapp.models.Result
 import com.android.recipeapp.ui.adapters.HomeFragmentAdapter
 import com.android.recipeapp.util.Constants
@@ -24,6 +25,7 @@ import com.android.recipeapp.viewmodels.MainViewModel
 import com.android.recipeapp.viewmodels.SearchOptionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
@@ -52,7 +54,10 @@ class HomeFragment : Fragment(){
             val isFromSearchOptionsFragment = HomeFragmentArgs.fromBundle(requireArguments()).returnFromOptionsFragment
             if(isFromSearchOptionsFragment){
                 Log.d("GET DATA FUNCTION","FROM SEARCH OPTIONS FRAGMENT, GET RECIPES FROM API")
-               getRecipesFromApi(searchOptionsViewModel.getQueries())
+                searchOptionsViewModel.getQueries()
+                searchOptionsViewModel.querieList.observe(viewLifecycleOwner,{
+                    getRecipesFromApi(it)
+                })
              }
             else{
                 Log.d("GET DATA FUNCTION","GET RECIPES FROM DB, ARGUMENTS NOT NULL")
@@ -76,49 +81,81 @@ class HomeFragment : Fragment(){
     }
 
     fun searchListener(){
-        binding.textFieldInput.doOnTextChanged { text, start, before, count ->
-            if(start>=0){
-                getRecipesFromApi(searchOptionsViewModel.getQueries(keyword = text.toString()))
+
+        binding.textField.apply {
+            setStartIconOnClickListener {
+                binding.textFieldInput.text?.let {keyword->
+                    if(keyword.length>0){
+                        searchOptionsViewModel.getQueries(keyword.toString())
+                        searchOptionsViewModel.querieList.observe(viewLifecycleOwner,{
+                            searchRecipes(it)
+                        })
+                    }else{
+                        getRecipesFromDatabase()
+                    }
+                }
+
             }
-            else{
+            setEndIconOnClickListener {
                 getRecipesFromDatabase()
+                binding.textFieldInput.setText("")
+            }
+
+        }
+
+    }
+
+    fun getRecipesFromApi(queries:HashMap<String,String>) = lifecycleScope.launch{
+
+        viewModel.getRecipes(queries)
+        Log.d("GET RECIPE QUERIES",queries.toString())
+        viewModel.recipes.observe(viewLifecycleOwner,{response->
+            handleResponse(response)
+        })
+    }
+
+
+    fun searchRecipes(queries:HashMap<String,String>) = lifecycleScope.launch{
+        viewModel.getSearchResults(queries)
+        Log.d("SEARCH RECIPE QUERIES",queries.toString())
+        viewModel.searchResults.observe(viewLifecycleOwner,{response->
+            handleResponse(response)
+        })
+    }
+
+
+
+    private fun handleResponse(response: Resource<FoodRecipes>){
+        when(response){
+            is Resource.Success->{
+                binding.shimmerRecyclerView.hideShimmer()
+                response.data?.let {
+                    binding.shimmerRecyclerView.apply {
+                        visibility=View.VISIBLE
+                        binding.noResultsFound.visibility=View.INVISIBLE
+                        adapter = HomeFragmentAdapter(it.results)
+                    }
+                }
+            }
+            is Resource.Error->{
+                binding.shimmerRecyclerView.apply {
+                    hideShimmer()
+                    visibility=View.INVISIBLE
+                }
+                binding.noResultsFound.apply {
+                    visibility=View.VISIBLE
+                    text=response.msg
+                }
+            }
+            is Resource.Loading->{
+                binding.shimmerRecyclerView.showShimmer()
             }
         }
     }
 
 
-    fun getRecipesFromApi(queries:HashMap<String,String>) = lifecycleScope.launch{
-        viewModel.getRecipes(queries)
-        Log.d("SEARCH QUERIES",queries.toString())
-        viewModel.recipes.observe(viewLifecycleOwner,{response->
-            when(response){
-                is Resource.Success->{
-                    binding.shimmerRecyclerView.hideShimmer()
-                    response.data?.let {
-                            binding.shimmerRecyclerView.apply {
-                                visibility=View.VISIBLE
-                                binding.noResultsFound.visibility=View.INVISIBLE
-                                adapter = HomeFragmentAdapter(it.results)
-                            }
-                    }
-                }
-                is Resource.Error->{
-                    binding.shimmerRecyclerView.apply {
-                        hideShimmer()
-                        visibility=View.INVISIBLE
-                    }
-                    binding.noResultsFound.apply {
-                        visibility=View.VISIBLE
-                        text=response.msg
-                    }
-                }
-                is Resource.Loading->{
-                    binding.shimmerRecyclerView.showShimmer()
-                }
-            }
 
-        })
-    }
+
 
 
     fun getRecipesFromDatabase() = lifecycleScope.launch{
@@ -130,7 +167,10 @@ class HomeFragment : Fragment(){
                 }
             }
             else{
-                getRecipesFromApi(searchOptionsViewModel.getQueries())
+                searchOptionsViewModel.getQueries()
+                searchOptionsViewModel.querieList.observe(viewLifecycleOwner,{
+                    getRecipesFromApi(it)
+                })
             }
 
         })
@@ -139,6 +179,9 @@ class HomeFragment : Fragment(){
     fun filterRecipesOnClick(){
         findNavController().navigate(R.id.action_homeFragment_to_searchOptionsFragment)
     }
+
+
+
 
 
 }
